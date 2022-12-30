@@ -1,3 +1,6 @@
+#ifndef LIST_H
+#define LIST_H
+
 #include <stdlib.h>
 #include <stddef.h>
 
@@ -26,3 +29,5 @@ void list_change_element(s_list* list, int new_value, size_t index);
 void list_delete_element(s_list* list, size_t index);
 
 void list_delete(s_list* list);
+
+#endif
