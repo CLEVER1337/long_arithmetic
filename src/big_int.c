@@ -9,7 +9,7 @@ void big_int_print(s_big_int* big_int){
     if(big_int->is_negative)
         printf("-");
     printf("%d", list_find_element(big_int->digits, big_int->digits->size - 1)->value);
-    for(int i = (int)big_int->digits->size - 2; i >= 0; i--)
+    for(int i = (int)big_int->digits->size - 2; i >= 0; --i)
         printf("%09d", list_find_element(big_int->digits, i)->value);
 }
 
@@ -38,10 +38,15 @@ s_big_int* big_int_create(char* value){
 
         for(int i = (int)strlen(value); i > 0; i -= 9){
             char substr[10];
-            if(i < 9)
+            if(i < 9){
                 strncpy(substr, value, i);
-            else
+                substr[i] = '\0';
+            }
+            else{
                 strncpy(substr, value + i - 9, 9);
+                substr[9] = '\0';
+            }
+            //printf("%d\n", atoi(substr));
             list_add_element(big_int->digits, atoi(substr));
         }
 
