@@ -5,7 +5,7 @@ project(long_arithmetic)
 
 
 #c compiler flags#
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -Wall -Os -Ofast")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -Wall -Os -Ofast -ffunction-sections -Wl,--gc-sections -fno-asynchronous-unwind-tables -Wl,--strip-all -fomit-frame-pointer -pipe")
 
 
 
@@ -14,6 +14,9 @@ if(NOT DEFINED LIBRARY_TYPE)
     set(LIBRARY_TYPE SHARED)
 endif()
 
+
+#set dll prefix to emty#
+set(CMAKE_SHARED_LIBRARY_PREFIX "")
 
 
 #info#

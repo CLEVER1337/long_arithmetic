@@ -3,9 +3,15 @@
 void big_int_delete_leadings_zero(s_big_int* big_int){
     while(big_int->digits->size > 0 && list_find_element(big_int->digits, big_int->digits->size - 1)->value == 0)
         list_delete_element(big_int->digits, big_int->digits->size - 1);
+    if(big_int->digits->size == 0) big_int->is_zero = true;
+    if(big_int->is_zero) big_int->is_negative = false;
 }
 
 void big_int_print(s_big_int* big_int){
+    if(big_int->is_zero){
+        printf("0");
+        return;
+    }
     if(big_int->is_negative)
         printf("-");
     printf("%d", list_find_element(big_int->digits, big_int->digits->size - 1)->value);
@@ -46,7 +52,6 @@ s_big_int* big_int_create(char* value){
                 strncpy(substr, value + i - 9, 9);
                 substr[9] = '\0';
             }
-            //printf("%d\n", atoi(substr));
             list_add_element(big_int->digits, atoi(substr));
         }
 

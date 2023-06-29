@@ -31,7 +31,7 @@ void list_add_element(s_list* list, int value){
     if(list->size == 0){
         list->head = node_create(value);
         list->size = 1;
-        return NULL;
+        return;
     }
 
     list_find_element(list, list->size - 1)->next = node_create(value);
@@ -40,7 +40,7 @@ void list_add_element(s_list* list, int value){
 
 void list_insert_element(s_list* list, int value, size_t index){
     if(index >= list->size || index < 0)
-        return NULL;
+        return;
 
     s_node* node = node_create(value);
     node->next = list_find_element(list, index);
@@ -55,19 +55,19 @@ void list_insert_element(s_list* list, int value, size_t index){
 
 void list_change_element(s_list* list, int new_value, size_t index){
     if(index >= list->size || index < 0)
-        return NULL;
+        return;
 
     list_find_element(list, index)->value = new_value;
 }
 
 void list_delete_element(s_list* list, size_t index){
     if(index >= list->size || index < 0)
-        return NULL;
+        return;
 
     if(index == 0 && list->size == 1){
         list->head = NULL;
         list->size = 0;
-        return NULL;
+        return;
     }
 
     s_node* next = list_find_element(list, index + 1);
