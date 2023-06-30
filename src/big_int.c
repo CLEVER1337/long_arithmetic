@@ -60,4 +60,53 @@ s_big_int* big_int_create(char* value){
     return big_int;
 }
 
-void big_int_delete(s_big_int* big_int);
+void big_int_delete(s_big_int* big_int){
+    list_delete(big_int->digits);
+    free(big_int);
+}
+
+s_big_int big_int_opposite_value(s_big_int big_int){
+    big_int.is_negative = !big_int.is_negative;
+    return big_int;
+}
+
+bool big_int_is_equal(s_big_int first, s_big_int second){
+    if(first.is_negative != second.is_negative)
+        return false;
+
+    if(first.digits->size != second.digits->size)
+        return false;
+
+    for(size_t i = 0; i < first.digits->size; i++)
+        if(list_find_element(first.digits, i)->value != list_find_element(second.digits, i)->value)
+            return false;
+
+    return true;
+}
+
+bool big_int_is_less(s_big_int first, s_big_int second){
+    if(big_int_is_equal(first, second)) return false;
+
+    if(first.is_negative){
+        if(second.is_negative) 
+            return big_int_is_less(big_int_opposite_value(first), big_int_opposite_value(second));
+        else 
+            return true;
+    }
+    else if(second.is_negative){
+        return false;
+    }
+    else{
+        if(first.digits->size != second.digits->size){
+            return first.digits->size < second.digits->size;
+        }
+        else{
+            for(size_t i = first.digits->size - 1; i >= 0; i--){
+                if(list_find_element(first.digits, i)->value != list_find_element(second.digits, i)->value) 
+                    return list_find_element(first.digits, i)->value < list_find_element(second.digits, i)->value;
+                
+                return false;
+            }
+        }
+    }
+}

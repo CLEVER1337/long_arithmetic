@@ -25,4 +25,10 @@ s_big_int* big_int_create(char* value);
 
 void big_int_delete(s_big_int* big_int);
 
+s_big_int big_int_opposite_value(s_big_int big_int);
+
+bool big_int_is_equal(s_big_int first, s_big_int second);
+
+bool big_int_is_less(s_big_int first, s_big_int second);
+
 #endif
