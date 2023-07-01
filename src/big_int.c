@@ -126,3 +126,29 @@ bool big_int_is_less_or_equal(s_big_int first, s_big_int second){
 bool big_int_is_bigger_or_equal(s_big_int first, s_big_int second){
     return !big_int_is_less(first, second);
 }
+
+s_big_int big_int_sum(s_big_int first, s_big_int second){
+    if(first.is_negative){
+        if(second.is_negative)
+            return big_int_opposite_value(big_int_sum(big_int_opposite_value(first), big_int_opposite_value(second)));
+        else
+            return big_int_sub(second, big_int_opposite_value(first));
+    }
+    else if(second.is_negative)
+        return big_int_sub(first, big_int_opposite_value(second));
+    
+    int carry = 0;
+    int stop = MAX(first.digits->size, second.digits->size);
+    for(size_t i = 0; i < stop || carry != 0; ++i){
+        if(i == first.digits->size) list_add_element(first.digits, 0);
+        list_find_element(first.digits, i)->value += carry + (i < second.digits->size ? list_find_element(second.digits, i)->value : 0);
+        carry = (list_find_element(first.digits, i)->value >= first.base);
+        if(carry != 0) list_find_element(first.digits, i)->value -= first.base;
+    }
+
+    return first;
+}
+
+s_big_int big_int_sub(s_big_int first, s_big_int second){
+
+}

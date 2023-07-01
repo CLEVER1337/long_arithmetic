@@ -1,6 +1,8 @@
 #ifndef BIG_INT_H
 #define BIG_INT_H
 
+#define MAX(a, b) a > b ? a : b
+
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
@@ -38,5 +40,9 @@ bool big_int_is_bigger(s_big_int first, s_big_int second);
 bool big_int_is_less_or_equal(s_big_int first, s_big_int second);
 
 bool big_int_is_bigger_or_equal(s_big_int first, s_big_int second);
+
+s_big_int big_int_sum(s_big_int first, s_big_int second);
+
+s_big_int big_int_sub(s_big_int first, s_big_int second);
 
 #endif
