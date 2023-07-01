@@ -84,6 +84,10 @@ bool big_int_is_equal(s_big_int first, s_big_int second){
     return true;
 }
 
+bool big_int_is_not_equal(s_big_int first, s_big_int second){
+    return !big_int_is_equal(first, second);
+}
+
 bool big_int_is_less(s_big_int first, s_big_int second){
     if(big_int_is_equal(first, second)) return false;
 
@@ -109,4 +113,16 @@ bool big_int_is_less(s_big_int first, s_big_int second){
             }
         }
     }
+}
+
+bool big_int_is_bigger(s_big_int first, s_big_int second){
+    return !big_int_is_less_or_equal(first, second);
+}
+
+bool big_int_is_less_or_equal(s_big_int first, s_big_int second){
+    return big_int_is_less(first, second) || big_int_is_equal(first, second);
+}
+
+bool big_int_is_bigger_or_equal(s_big_int first, s_big_int second){
+    return !big_int_is_less(first, second);
 }
