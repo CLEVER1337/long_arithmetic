@@ -45,4 +45,8 @@ s_big_int big_int_sum(s_big_int first, s_big_int second);
 
 s_big_int big_int_sub(s_big_int first, s_big_int second);
 
+void big_int_increment(s_big_int* big_int);
+
+void big_int_decrement(s_big_int* big_int);
+
 #endif

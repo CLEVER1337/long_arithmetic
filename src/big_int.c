@@ -139,7 +139,7 @@ s_big_int big_int_sum(s_big_int first, s_big_int second){
     
     int carry = 0;
     int stop = MAX(first.digits->size, second.digits->size);
-    for(size_t i = 0; i < stop || carry != 0; ++i){
+    for(size_t i = 0; i < stop || carry != 0; i++){
         if(i == first.digits->size) list_add_element(first.digits, 0);
         list_find_element(first.digits, i)->value += carry + (i < second.digits->size ? list_find_element(second.digits, i)->value : 0);
         carry = (list_find_element(first.digits, i)->value >= first.base);
@@ -150,5 +150,26 @@ s_big_int big_int_sum(s_big_int first, s_big_int second){
 }
 
 s_big_int big_int_sub(s_big_int first, s_big_int second){
+    if(second.is_negative) return big_int_sum(first, big_int_opposite_value(second));
+    else if(first.is_negative) return big_int_opposite_value(big_int_sum(big_int_opposite_value(first), second));
+    else if(big_int_is_less(first, second)) return big_int_opposite_value(big_int_sub(second, first));
+    
+    int carry = 0;
+    for(size_t i = 0; i < second.digits->size || carry != 0; i++){
+        list_find_element(first.digits, i)->value -= carry + (i < second.digits->size ? list_find_element(second.digits, i)->value : 0);
+        carry = (list_find_element(first.digits, i)->value < 0);
+        if(carry != 0) list_find_element(first.digits, i)->value += first.base;
+    }
 
+    big_int_delete_leadings_zero(&first);
+
+    return first;
+}
+
+void big_int_increment(s_big_int* big_int){
+    *big_int = (big_int_sum(*big_int, *big_int_create("1")));
+}
+
+void big_int_decrement(s_big_int* big_int){
+    *big_int = (big_int_sub(*big_int, *big_int_create("1")));
 }
