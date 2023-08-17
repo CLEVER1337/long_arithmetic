@@ -30,4 +30,6 @@ void list_delete_element(s_list* list, size_t index);
 
 void list_delete(s_list* list);
 
+void list_resize(s_list* list, size_t new_size);
+
 #endif

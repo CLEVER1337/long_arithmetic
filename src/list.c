@@ -85,5 +85,15 @@ void list_delete(s_list* list){
     for(int i = (int)list->size - 1; i >= 0; i--){
         list_delete_element(list, i);
     }
+
     free(list);
+}
+
+/// @brief new_size must be bigger than list->size
+/// @param list 
+/// @param new_size 
+void list_resize(s_list* list, size_t new_size){
+    for(size_t i = list->size; i < new_size; i++){
+        list_add_element(list, 0);
+    }
 }

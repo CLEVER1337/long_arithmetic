@@ -173,3 +173,27 @@ void big_int_increment(s_big_int* big_int){
 void big_int_decrement(s_big_int* big_int){
     *big_int = (big_int_sub(*big_int, *big_int_create("1")));
 }
+
+s_big_int big_int_mul(s_big_int first, s_big_int second){
+    s_big_int* result = big_int_create("0");
+    
+    list_resize(result->digits, first.digits->size + second.digits->size);
+    
+    for(size_t i = 0; i < first.digits->size; i++){
+        int carry = 0;
+        for(size_t j = 0; j < second.digits->size || carry != 0; ++j){
+            long long current = list_find_element(result->digits, i + j)->value +
+                                list_find_element(first.digits, i)->value * 1LL * 
+                                (j < second.digits->size ? list_find_element(second.digits, j)->value : 0) +
+                                carry;
+            
+            list_find_element(result->digits, i + j)->value = current % result->base;
+            carry = current / result->base;
+        }
+    }
+    
+    result->is_negative = first.is_negative != second.is_negative;
+    result->is_zero = false;
+    big_int_delete_leadings_zero(result);
+    return *result;
+}

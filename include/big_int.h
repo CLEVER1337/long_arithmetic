@@ -49,4 +49,6 @@ void big_int_increment(s_big_int* big_int);
 
 void big_int_decrement(s_big_int* big_int);
 
+s_big_int big_int_mul(s_big_int first, s_big_int second);
+
 #endif
